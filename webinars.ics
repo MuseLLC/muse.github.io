@@ -1,0 +1,42 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//www.marudot.com//iCal Event Maker
+X-WR-CALNAME:Rocket.Chat Webinars
+CALSCALE:GREGORIAN
+BEGIN:VTIMEZONE
+TZID:America/Sao_Paulo
+TZURL:http://tzurl.org/zoneinfo-outlook/America/Sao_Paulo
+X-LIC-LOCATION:America/Sao_Paulo
+BEGIN:DAYLIGHT
+TZOFFSETFROM:-0300
+TZOFFSETTO:-0200
+TZNAME:BRST
+DTSTART:19701018T000000
+RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=3SU
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:-0300
+TZOFFSETTO:-0300
+TZNAME:BRT
+DTSTART:19700215T000000
+RRULE:FREQ=YEARLY;BYMONTH=2;BYDAY=3SU
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+DTSTAMP:20180827T141644Z
+UID:20180827T141644Z-215309115@marudot.com
+DTSTART;TZID="America/Sao_Paulo":20180830T110000
+DTEND;TZID="America/Sao_Paulo":20180830T120000
+SUMMARY:Rocket.Chat's Open Source Chatbots
+URL:https%3A%2F%2Fopen.rocket.chat%2Fchannel%2Fwebinars
+DESCRIPTION:Have you ever asked yourself 'Should I have my own chatbot?'. \nLearn more about how to design\, code and deploy your Rocket.Chat's Open Source Chatbots\, using frameworks avaialable on the web.\nHosted by Diego Dorgam\, Bots Engineer at Rocket.Chat!
+LOCATION:https://rocket.chat/webinars
+TRANSP:OPAQUE
+X-MICROSOFT-CDO-BUSYSTATUS:BUSY
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Rocket.Chat's Open Source Chatbots
+TRIGGER:-PT15M
+END:VALARM
+END:VEVENT
+END:VCALENDAR

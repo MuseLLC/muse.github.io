@@ -1,0 +1,92 @@
+---
+layout: landing
+class: landing
+theme: light
+permalink: /marketplace
+redirect_from:
+  - /apps/
+  - /apps
+  - /marketplace/
+---
+
+<section class="hero">
+  <h1>Connect your favorite Apps</h1>
+  <div class="">
+    <input class="search input input--icon-search" type="text" name="" placeholder="Search apps" />
+    <ul class="search-results-list"></ul>
+  </div>
+</section>
+
+<div class="apps-loading">
+  <img class="loading-spinner" src="/images/spinner.svg" alt="">
+  <p>Loading available Apps, please wait...</p>
+</div>
+
+<div class="container apps-list-container">
+  <div class="select select--theme-light categories-select">
+    <select>
+      <option value="All Apps">All Apps</option>
+    </select>
+  </div>
+  <div class="flex-container">
+    <ul class="links-list col col--fourth">
+      <li class="links-list-item">
+        <button data-category="" class="app-category-button">All Apps</button>
+      </li>
+    </ul>
+    <section class="col apps-list-wrapper">
+      <div class="apps-message-container display-none">
+        <div class="message">No results found</div>
+        <span class="icon"></span>
+        <div class="suggest">
+          <p>Don't see an app you use? Let us know!</p>
+          <a href="https://forums.rocket.chat/c/rocket-chat-apps" class="button" target="_blank">Request an app</a>
+        </div>
+        <div class="suggest">
+          <p>Developer? Click <a href="https://rocket.chat/docs/developer-guides/" class="button--link" target="_blank">here</a> get started creating an app</p>
+        </div>
+      </div>
+      <ul class="apps-list grid two-rows"></ul>
+    </section>
+  </div>
+</div>
+
+<div class="add-app-modal-wrapper display-none"></div>
+
+<script id="app-card-template" type="html/template">
+  <div class="app-card col--haft">
+    <div class="icon-wrapper">
+      <div class="icon"></div>
+    </div>
+    <div class="content-wrapper">
+      <div class="content">
+        <span class="name"></span>
+        <span class="description"></span>
+      </div>
+      <ul class="categories-list"></ul>
+    </div>
+  </div>
+</script>
+
+<script id="search-result-template" type="html/template">
+  <div class="search-result">
+    <div class="icon-wrapper">
+      <div class="icon"></div>
+    </div>
+    <div class="content-wrapper">
+      <span class="name"></span>
+      <span class="description"></span>
+    </div>
+  </div>
+</script>
+
+<script id="add-app-modal-template" type="html/template">
+  <div class="modal-wrapper-background"></div>
+  <div class="modal-content">
+    <div class="app-card-wrapper"></div>
+    <div class="close-button"></div>
+  </div>
+</script>
+
+<script src="/polyfill/clipboard.min.js"></script>
+<script src="/marketplace.js"></script>

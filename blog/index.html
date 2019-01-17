@@ -1,0 +1,219 @@
+---
+layout: en/default
+class: blog
+theme: dark
+redirect_from:
+  - /blog
+  - /2015/05/30/an-open-source-chat-you-can-add-to-the-web/
+  - /blog/an-open-source-chat-you-can-add-to-the-web
+  - /rocket.chat/2015/05/28/product-hunt/
+  - /blog/product-hunt
+  - /2015/05/30/rocketchat-for-programmers-who-want-to-offer-livechat-on-their-own-website/
+  - /2015/06/01/free-web-service-to-create-channels-send-dms/
+  - /2015/06/03/a-fistful-of-slack-clones-chat-apps-with-meteor/
+  - /2015/06/10/rocketchat-host-your-own-open-source-chat-server/
+  - /2016/06/14/rocketchat-enabling-privately-hosted-chat-services/
+  - /2017/10/06/success-story-rotogrinders/
+  - /contestapps
+  - /contestapps/
+
+category: home
+---
+
+{% assign FeaturedList = "" | split: "" %}
+{% assign EventList = "" | split: "" | sort: "dateEvent"  %}
+
+{% for post in site.posts %}
+  {% if post.featured == true %}
+    {% assign FeaturedList = FeaturedList | push: post %}
+  {% endif %}
+
+  {% if post.categories contains "Events" and post.location and post.dateEvent %}
+    {% if post.dateEvent > site.time %}
+      {% assign EventList = EventList | push: post %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+
+{% assign EventListSorted = EventList | sort: "dateEvent"  %}
+
+<div class="container">
+  {% include blog/header.html %}
+
+  {% if paginator.page == 1 %}
+
+  <h3 class="display--small theme_type--dark blog__section"><strong>Featured</strong></h3>
+
+  <div class="blog__featured">
+    {% for post in FeaturedList limit:7 %}
+      {% include blog/article-link.html post=post %}
+    {% endfor %}
+  </div>
+
+  <div class="space--7"></div>
+
+  {% if EventListSorted.size > 0 %}
+  <h3 class="display--small theme_type--dark blog__section">
+    <strong>
+      <span>Upcoming Events </span>
+    </strong>
+    <small>
+      <a href="/category/events/" class="button--link text type--nomargin">View all</a>
+    </small>
+  </h3>
+  <div class="blog__recents">
+    {% for post in EventListSorted limit:3 %}
+      {% include blog/article-link.html post=post %}
+    {% endfor %}
+  </div>
+  <div class="space--7"></div>
+  {% endif %}
+
+
+  <div class="flex-grid blog__col-recents">
+    <div class="row">
+      <h3 class="display--small theme_type--dark blog__section">
+        <strong>
+          <span>Recents </span>
+        </strong>
+        <small>
+          <a href="/blog/page/2" class="button--link text type--nomargin">View all</a>
+        </small>
+      </h3>
+
+      <div class="blog__recents">
+        {% for post in paginator.posts limit:3 %}
+          {% if post.categories contains "Events" and post.location and post.dateEvent %}
+            {% include blog/article-link.html post=post %}
+          {% else %}
+            <a
+              class="card--blog card--blog__image"
+              href="{{ post.url | remove: "index.html" }}"
+            >
+              <div
+                class="card--blog__cover"
+                {% if post.cover %}
+                  style="background-image: url('{{ post.cover }}')"
+                {% else %}
+                  style="background-image: url('/images/blog/post.jpg')"
+                {% endif %}
+              ></div>
+              <div class="card--blog__wrap">
+                <p class="card--blog__meta label--small theme_type--grey">
+                  {{ post.date | date: "%b %-d, %Y" }}
+                  —
+                  {% assign words = post.content | number_of_words %}
+                  {% if words < site.wpm %} 1 min {% else %} {{ words | divided_by: site.wpm }} mins {% endif %} read
+                </p>
+                <h3 class="card--blog__title theme_type--dark">{{ post.title }}</h3>
+                <div class="card--blog__data">
+                  <p class="card--blog__category theme_box--dark-medium theme_type--dark tag">{{ post.categories[0] }}</p>
+                  <p class="card--blog__author text--small theme_type--grey">by {{ post.author }}</p>
+                </div>
+              </div>
+            </a>
+          {% endif %}
+        {% endfor %}
+      </div>
+      <div class="space--3"></div>
+    </div>
+
+    <div class="flex-grid blog__col-recents">
+      <div class="row">
+        <h3 class="display--small theme_type--dark blog__section">
+          <strong>
+            <span>In the Press </span>
+          </strong>
+          <small>
+            <a href="/category/press/" class="button--link text type--nomargin">View all</a>
+          </small>
+        </h3>
+
+        <div class="blog__recents">
+          {% assign press = site.posts | where: "categories", "Press" %}
+          {% for post in press limit:3 %}
+            {% if post.categories contains "Press" %}
+              {% include blog/article-link.html post=post %}
+            {% endif %}
+          {% endfor %}
+        </div>
+        <div class="space--3"></div>
+      </div>
+
+    <div class="blog__more-featured">
+      <h3 class="display--small theme_type--dark blog__section"><strong>More Featured</strong></h3>
+      <div class="blog__more-featured-grid">
+        {% for post in FeaturedList limit:12 %}
+          {% if forloop.index > 7 %}
+            {% include blog/article-link.html post=post %}
+          {% endif %}
+        {% endfor %}
+
+        <div class="card theme_box--dark">
+          <p class="label theme_type--grey">RSS feed</p>
+          <p class="theme_type--dark">Stay up to date with all things open source communication!</p>
+          <a href="/feed.xml" target="_blank" class="button--link button--with-arrow">Subscribe to updates</a>
+        </div>
+      </div>
+
+      <div class="space--3"></div>
+
+
+    </div>
+  </div>
+
+  <div class="space--6"></div>
+
+  {% endif %}
+
+  {% if paginator.page > 1 %}
+  <h1 class="display--big theme_type--dark">Recents</h1>
+
+  <div class="space--4"></div>
+
+  <div class="blog__category">
+    {% for post in paginator.posts %}
+
+      {% if post.categories contains "Events" and post.location and post.dateEvent %}
+        {% include blog/article-link.html post=post %}
+      {% else %}
+        {% include blog/article-link.html post=post %}
+      {% endif %}
+
+    {% endfor %}
+  </div>
+
+  <div class="pagination">
+    {% if paginator.previous_page %}
+      <a href="{{ paginator.previous_page_path }}" class="previous"><img src="/images/default/arrow--left.svg" /></a>
+    {% else %}
+      <span class="previous inactive"><img src="/images/default/arrow--left.svg" /></span>
+    {% endif %}
+
+    {% for page in (1..paginator.total_pages) %}
+      {% if page == paginator.page %}
+        <span class="current">
+          <span>{{ page }}</span>
+        </span>
+      {% elsif page == 1 %}
+        <a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">
+          <span>{{ page }}</span>
+        </a>
+      {% else %}
+        <a href="{{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: ':num', page }}">
+          <span>{{ page }}</span>
+        </a>
+      {% endif %}
+    {% endfor %}
+
+    {% if paginator.next_page %}
+      <a href="{{ paginator.next_page_path }}" class="next"><img src="/images/default/arrow--right.svg" /></a>
+    {% else %}
+      <span class="next inactive"><img src="/images/default/arrow--right.svg" /></span>
+    {% endif %}
+  </div>
+</div>
+
+<div class="space--4"></div>
+{% endif %}
+
