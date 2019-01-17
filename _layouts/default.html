@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Rocket.Chat - {% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
+	<meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}"/>
+	<meta name="viewport" content="width=device-width, user-scalable=no">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="preconnect" href="https://www.googletagmanager.com">
+  <link rel="preconnect" href="https://code.jquery.com/">
+  <link rel="canonical" href="{{ page.url | absolute_url }}">
+  <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="/feed.xml">
+  <link rel="shortcut icon" href="/favicon.ico?v=1"/>
+  <link rel="stylesheet" href="/styles.css?v={{ site.version }}">
+
+  {% if page.class == "index" or page.categories contains "Webinars" %}
+  <link href="//cdn.rawgit.com/noelboss/featherlight/1.7.13/release/featherlight.min.css" type="text/css" rel="stylesheet" />
+  {% endif %}
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@RocketChat">
+  <meta name="twitter:title" content="Rocket.Chat - {% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
+  <meta name="twitter:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+  <meta name="twitter:image" content="{{ site.url }}/images/blog/post.jpg">
+  <meta name="twitter:image:alt" content="Rocket.Chat - {% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
+  <meta name="apple-itunes-app" content="app-id=1148741252">
+
+
+  {% if post.cover %}
+  <meta property="og:type"  content="article" />
+  <meta property="og:image" content="{{ post.cover }}" />
+  {% else %}
+  <meta property="og:image" content="{{ site.url }}/images/blog/post.jpg" />
+  {% endif %}
+
+  {% include gtm/head.html %}
+</head>
+<body class="{{ page.class }} {{ page.theme }} {{ page.layout }}">
+  {% include webrules.html %}
+  {% comment %}
+  {% include livechat.html %}
+  {% endcomment %}
+  {% include gtm/body.html %}
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  {{ content }}
+
+<script src="/main.js"></script>
+<script src="/redirect.js"></script>
+{% if page.class == "index" or page.categories contains "Webinars" %}
+  <script src="//cdn.rawgit.com/noelboss/featherlight/1.7.13/release/featherlight.min.js" async type="text/javascript" charset="utf-8"></script>
+{% endif %}
+
+<!--[if IE]>
+  <script src="/polyfill/modernizr.js"></script>
+  <script src="/polyfill/respond.min.js"></script>
+  <script src="/polyfill/calc.min.js"></script>
+<![endif]-->
+</body>
+</html>

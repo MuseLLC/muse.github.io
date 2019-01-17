@@ -1,0 +1,68 @@
+---
+layout: en/default
+class: blog
+title: Categories
+theme: dark
+permalink: /categories/
+---
+<div class="container">
+  {% include blog/header.html %}
+
+  <h1 class="display--big theme_type--dark">{{ page.title }}</h1>
+  <p class="display--small theme_type--grey">{{ page.heading }}</p>
+
+  {% unless page.content == '' %}
+    <p>{{ page.content }}</p>
+  {% endunless %}
+
+  {% unless site.categories[page.category] %}
+    <p class="display--small theme_type--grey">No posts in this category at this time.</p>
+  {% endunless %}
+
+  <div class="space--4"></div>
+
+
+  <!-- Only events -->
+  {% if page.category == "Events" or page.category == "Webinars" %}
+
+    {% assign Upcoming = "" | split: "" %}
+    {% assign Past = "" | split: "" %}
+
+    {% for post in site.categories[page.category] %}
+      {% if post.dateEvent > site.time and post.dateEvent %}
+        {% assign Upcoming = Upcoming | push: post %}
+      {% elsif post.dateEvent < site.time and post.dateEvent %}
+        {% assign Past = Past | push: post %}
+      {% endif %}
+    {% endfor %}
+
+    {% assign UpcomingSorted = Upcoming | sort: "dateEvent"  %}
+
+
+    <h3 class="display--small theme_type--dark blog__section"><strong>Upcoming</strong></h3>
+    <div class="{% if noHighlight == true %}blog__category--no-highlight{% elsif Upcoming.size > 3 or page.category == "Webinars" %}blog__category{% else %}blog__category--no-highlight{% endif %}">
+      {% for post in UpcomingSorted %}
+        {% include blog/article-link.html post=post %}
+      {% endfor %}
+    </div>
+
+    <div class="space--4"></div>
+
+    <h3 class="display--small theme_type--dark blog__section"><strong>Past</strong></h3>
+    <div class="{% if noHighlight == true %}blog__category--no-highlight{% elsif Upcoming.size > 3 %}blog__category{% else %}blog__category--no-highlight{% endif %}">
+      {% for post in Past %}
+        {% include blog/article-link.html post=post %}
+      {% endfor %}
+    </div>
+
+  <!-- Else posts -->
+  {% else %}
+    <div class="{% if page.noHighlight %}blog__category--no-highlight{% elsif site.categories[page.category].size > 3 %}blog__category{% else %}blog__category--no-highlight{% endif %}">
+      {% for post in site.categories[page.category] %}
+        {% include blog/article-link.html post=post %}
+      {% endfor %}
+    </div>
+  {% endif %}
+</div>
+
+<div class="space--4"></div>
